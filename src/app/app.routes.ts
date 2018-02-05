@@ -7,13 +7,22 @@ import { MembersComponent } from './auth/members/members.component';
 import { AuthService } from './service/auth.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { EmailComponent } from './auth/email/email.component';
+import { CreateComponent } from './user/create/create.component';
+import { GeneratecodeComponent } from './user/generatecode/generatecode.component';
+import { CheckinComponent } from './user/checkin/checkin.component';
+import { ListComponent } from './user/list/list.component';
+
 
 export const router: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'login-email', component: EmailComponent },
-    { path: 'members', component: MembersComponent, canActivate: [AuthService] }
+    { path: 'members', component: MembersComponent, canActivate: [AuthService] },    
+    { path: 'create', component: CreateComponent, canActivate: [AuthService] },  
+    { path: 'generatecode', component: GeneratecodeComponent, canActivate: [AuthService] },    
+    { path: 'checkin', component: CheckinComponent, canActivate: [AuthService] },
+    { path: 'userlist', component: ListComponent, canActivate: [AuthService] }
 
 ]
 

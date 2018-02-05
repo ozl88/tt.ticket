@@ -1,23 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { CanActivate, Router } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
@@ -41,6 +21,12 @@ export class AuthService implements CanActivate {
         (!authenticated) this.router.navigate([ '/login' ]);
       })
     }
+
+    logout() {
+      this.firebaseAuth.auth.signOut();
+      console.log('logged out');
+      this.router.navigateByUrl('/login');
+   }    
  
 }
 

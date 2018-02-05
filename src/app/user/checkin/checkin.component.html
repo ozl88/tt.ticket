@@ -1,0 +1,19 @@
+<div class="form-container">
+    <a routerLink="/members" id="goback">Go back</a>
+  <div class="d-flex flex-column">
+    <div>
+      Code:
+      <input type="text" name="code" [(ngModel)]="code">
+          
+
+      <div class="d-flex"  *ngIf="!isVerified">
+        <button (click)="verifyCode()" id="btnverify" class="basic-btn">Verify</button>
+      </div>
+      <span class="error" *ngIf="message" [@fallIn]='state'>{{ message }}</span>
+
+      <div class="d-flex" *ngIf="isVerified">
+        <p>adf</p>
+          <button (click)="checkin()" id="btncheckin" class="basic-btn">CheckIn</button>
+        </div>
+    </div>
+  </div>
