@@ -11,6 +11,7 @@ import { CreateComponent } from './user/create/create.component';
 import { GeneratecodeComponent } from './user/generatecode/generatecode.component';
 import { CheckinComponent } from './user/checkin/checkin.component';
 import { ListComponent } from './user/list/list.component';
+import { AttendantsComponent } from './event/attendants/attendants.component';
 
 
 export const router: Routes = [
@@ -22,7 +23,9 @@ export const router: Routes = [
     { path: 'create', component: CreateComponent, canActivate: [AuthService] },  
     { path: 'generatecode', component: GeneratecodeComponent, canActivate: [AuthService] },    
     { path: 'checkin', component: CheckinComponent, canActivate: [AuthService] },
-    { path: 'userlist', component: ListComponent, canActivate: [AuthService] }
+    { path: 'userlist', component: ListComponent, canActivate: [AuthService] },
+    { path: 'attendants', component: AttendantsComponent, canActivate: [AuthService] }
+    
 
 ]
 

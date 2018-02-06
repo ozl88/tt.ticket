@@ -1,0 +1,30 @@
+<div class="container" style="overflow-x:auto; margin:50px">
+
+  <a routerLink="/members" id="goback">Go back</a>
+
+
+  <table>
+    <tr>
+      <th></th>
+      <th>code</th>
+      <th>Last Name</th>
+      <th>First Name</th>
+      <th>Email</th>
+      <th>Contact</th>
+      <th>organization</th>
+      <th>checkin</th>
+    </tr>
+    <tr *ngFor="let attendant of attendants |async;  let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ attendant.attendant.code }}</td>
+      <td>{{ attendant.user.firstname }}</td>
+      <td>{{ attendant.user.lastname }}</td>
+      <td>{{ attendant.user.contact }}</td>
+      <td>{{ attendant.user.email }}</td>
+      <td>{{ attendant.user.organization }}</td>
+      <td>{{ attendant.attendant.checkin }}</td>
+    </tr>
+  </table>
+
+
+</div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { moveIn, fallIn, moveInLeft } from '../../router.animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//import { QCodeDecoder } from 'qcode-decoder';
+import QrCode from 'qrcode-reader';
 
 import { UserInfo } from '../../model/userinfo';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -22,7 +24,11 @@ export class CheckinComponent implements OnInit {
   isVerified: boolean;
   message: string;
   docId: string;
-  constructor(private afs: AngularFirestore) { }
+  name: string = "";
+  userinfo = new UserInfo();
+
+  constructor(private afs: AngularFirestore) {
+  }
 
   ngOnInit() {
   }
@@ -41,10 +47,12 @@ export class CheckinComponent implements OnInit {
             this.message = "checkin before!";
           } else {
             this.isVerified = true;
-            console.log(querySnapshot.docs[0].data());
             this.docId = querySnapshot.docs[0].id;
+            var usersRef = this.afs.collection('users').doc(querySnapshot.docs[0].data().userDocId.id).ref.get()
+            .then((value) => {
+              this.userinfo = value.data() as UserInfo;
+            });
           }
-
         } else {
           this.isVerified = false;
           this.message = "Not Exist!";
@@ -55,11 +63,20 @@ export class CheckinComponent implements OnInit {
   }
 
   checkin() {
+    this.message = "Check in in progress..";
     this.afs.collection('attendants').doc(this.docId).update({
       checkin: true
     }).then((success) => {
       this.message = "Check in successfully";
+      this.isVerified = false;
+      
     });
+  }
+
+  cancel() {
+    this.isVerified = false;
+    this.message = "";
+    this.code = "";
   }
 
 }

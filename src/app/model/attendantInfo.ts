@@ -5,6 +5,7 @@ export class AttendantInfo {
     checkin: boolean;
     withdraw: boolean;
     walkin: boolean;
+    checkintime: string;
     id?: string;
 
     getData(): object {
