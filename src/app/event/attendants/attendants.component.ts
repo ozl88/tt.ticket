@@ -23,6 +23,18 @@ export class AttendantsComponent implements OnInit {
       return ref.orderBy('code');
     });
 
+    var abcd = new Array<UserInfo>();
+
+    this.afs.collection('users').ref.get().then((value) => {
+      value.forEach((v) => {
+        let data = v.data() as UserInfo;
+        abcd.push(data);
+      })
+    });
+
+
+    var userList = this.afs.collection('users');
+    userList
     this.attendants = this.attendantsCollection.snapshotChanges().map(
       changes => {
         return changes.map(
@@ -33,11 +45,18 @@ export class AttendantsComponent implements OnInit {
 
             attendantfullinfo.attendant = attendantInfo;
             attendantfullinfo.user = new UserInfo();
-            this.afs.collection('users').doc(attendantInfo.userDocId.id).ref.get()
+            abcd.forEach(x => {
+              console.log("user: ",x,attendantInfo.userDocId.id);
+              if (x.id == attendantInfo.userDocId.id) {
+                attendantfullinfo.user = x;
+              }
+            });
+
+            userList.doc(attendantInfo.userDocId.id).ref.get()
               .then((value) => {
                 attendantfullinfo.user = value.data() as UserInfo;
               });
-              return attendantfullinfo;            
+            return attendantfullinfo;
           });
       });
   }

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { moveIn, fallIn, moveInLeft } from '../../router.animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { QCodeDecoder } from 'qcode-decoder';
-import QrCode from 'qrcode-reader';
 
 import { UserInfo } from '../../model/userinfo';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -36,10 +34,10 @@ export class CheckinComponent implements OnInit {
 
   verifyCode() {
     console.log("verifyCode: ", this.code);
-
+    
     this.message = "";
     var attendantsRef = this.afs.collection('attendants');
-    var query = attendantsRef.ref.where("code", "==", this.code).get().then(
+    var query = attendantsRef.ref.where("code", "==", this.code.toUpperCase()).get().then(
       (querySnapshot) => {
         console.log("size ", querySnapshot.size);
         if (querySnapshot.size > 0) {
@@ -69,7 +67,7 @@ export class CheckinComponent implements OnInit {
     }).then((success) => {
       this.message = "Check in successfully";
       this.isVerified = false;
-      
+      this.code = "";      
     });
   }
 

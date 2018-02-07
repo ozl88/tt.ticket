@@ -37,12 +37,12 @@ export class GeneratecodeComponent implements OnInit {
 
         let data = v.data() as UserInfo;
 
-        let stringTohash = "HI7Oj1OY284i0YD2aJC1" + data.firstname + data.lastname
+        let stringTohash = "HI7Oj1OY284i0YD2aJC1" + data.contact;
         let hash = ShortHash.unique(stringTohash);
         let newAttendantInfo = new AttendantInfo();
         newAttendantInfo.eventDocId = "HI7Oj1OY284i0YD2aJC1";
         newAttendantInfo.userDocId = v.ref;
-        newAttendantInfo.code = hash.toLowerCase();
+        newAttendantInfo.code = hash.toUpperCase();
         newAttendantInfo.checkin = false;
         newAttendantInfo.withdraw = false;
         newAttendantInfo.walkin = false;

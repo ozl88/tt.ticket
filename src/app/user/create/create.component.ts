@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { moveIn, fallIn, moveInLeft } from '../../router.animations';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { UserInfo } from '../../model/userinfo';
 import { FirebaseDatabase } from '@firebase/database-types';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
@@ -23,9 +20,7 @@ interface User {
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
-  styleUrls: ['./create.component.css'],
-  animations: [moveIn(), fallIn(), moveInLeft()],
-  host: { '[@moveIn]': '' }
+  styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
 
