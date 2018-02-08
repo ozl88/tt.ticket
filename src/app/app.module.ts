@@ -22,6 +22,7 @@ import { GeneratecodeComponent } from './user/generatecode/generatecode.componen
 import { CheckinComponent } from './user/checkin/checkin.component';
 import { ListComponent } from './user/list/list.component';
 import { AttendantsComponent } from './event/attendants/attendants.component';
+import { ClaimComponent } from './claim/claim.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AttendantsComponent } from './event/attendants/attendants.component';
     GeneratecodeComponent,
     CheckinComponent,
     ListComponent,
-    AttendantsComponent
+    AttendantsComponent,
+    ClaimComponent
   ],
   imports: [
     BrowserModule,

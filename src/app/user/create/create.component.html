@@ -5,18 +5,19 @@
     <div>
       First name:
       <input type="text" name="firstname" [(ngModel)]="newUserInfo.firstname">
-      <br> Last name:
+      Last name:
       <input type="text" name="lastname" [(ngModel)]="newUserInfo.lastname">
-      <br> Contact:
+      Contact:
       <input type="text" name="contactnumber" [(ngModel)]="newUserInfo.contact">
-      <br> Email:
+      Email:
       <input type="text" name="email" [(ngModel)]="newUserInfo.email">
-      <br> Organization:
+      Organization:
       <input type="text" name="organization" [(ngModel)]="newUserInfo.organization">
-      <br>
-
+      
       <div class="d-flex">
         <button (click)="addUser()" id="btnLogin" class="basic-btn">Add User</button>
       </div>
+
+      <span class="message" *ngIf="message" >{{ message }}</span>
     </div>
   </div>

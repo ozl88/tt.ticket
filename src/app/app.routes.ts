@@ -12,6 +12,7 @@ import { GeneratecodeComponent } from './user/generatecode/generatecode.componen
 import { CheckinComponent } from './user/checkin/checkin.component';
 import { ListComponent } from './user/list/list.component';
 import { AttendantsComponent } from './event/attendants/attendants.component';
+import { ClaimComponent } from './claim/claim.component';
 
 
 export const router: Routes = [
@@ -19,12 +20,14 @@ export const router: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'login-email', component: EmailComponent },
+    { path: 'claim', component: ClaimComponent },      
     { path: 'members', component: MembersComponent, canActivate: [AuthService] },    
     { path: 'create', component: CreateComponent, canActivate: [AuthService] },  
     { path: 'generatecode', component: GeneratecodeComponent, canActivate: [AuthService] },    
     { path: 'checkin', component: CheckinComponent, canActivate: [AuthService] },
     { path: 'userlist', component: ListComponent, canActivate: [AuthService] },
     { path: 'attendants', component: AttendantsComponent, canActivate: [AuthService] }
+
     
 
 ]

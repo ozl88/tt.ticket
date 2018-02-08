@@ -6,6 +6,8 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import * as ShortHash from 'shorthash';
+import { AttendantInfo } from '../../model/attendantInfo';
 
 interface User {
   firstname: string;
@@ -30,6 +32,8 @@ export class CreateComponent implements OnInit {
   newUserInfo: UserInfo;
   user: any;
 
+  message: string = "";
+
   constructor(private afs: AngularFirestore) {
     this.newUserInfo = new UserInfo();
 
@@ -48,8 +52,32 @@ export class CreateComponent implements OnInit {
   addUser() {
     console.log("userinfo: ", this.newUserInfo);
 
-    this.afs.collection('users').add(this.newUserInfo.getData()).then(() =>
-      console.log("add successfully"));
+    if (this.newUserInfo.contact &&
+      !this.newUserInfo.contact.startsWith("+886") && !this.newUserInfo.contact.startsWith("+6")) {
+      this.newUserInfo.contact = "+6" + this.newUserInfo.contact;
+    }
+
+    if (!this.newUserInfo.organization) {
+      this.newUserInfo.organization = "-";
+    }
+
+    this.afs.collection('users').add(this.newUserInfo.getData()).then((res) => {
+      let stringTohash = "HI7Oj1OY284i0YD2aJC1" + this.newUserInfo.contact;
+      let hash = ShortHash.unique(stringTohash);
+      let newAttendantInfo = new AttendantInfo();
+      newAttendantInfo.eventDocId = "HI7Oj1OY284i0YD2aJC1";
+      newAttendantInfo.userDocId = res;
+      newAttendantInfo.code = hash.toUpperCase();
+      newAttendantInfo.checkin = false;
+      newAttendantInfo.withdraw = false;
+      newAttendantInfo.walkin = false;
+      newAttendantInfo.checkintime = "";
+
+      this.afs.collection('attendants').add(newAttendantInfo.getData())
+        .then((r) => {
+        });
+    }
+    );
     this.clearData();
   }
 

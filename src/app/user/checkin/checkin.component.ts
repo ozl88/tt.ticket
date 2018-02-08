@@ -34,7 +34,7 @@ export class CheckinComponent implements OnInit {
 
   verifyCode() {
     console.log("verifyCode: ", this.code);
-    
+
     this.message = "";
     var attendantsRef = this.afs.collection('attendants');
     var query = attendantsRef.ref.where("code", "==", this.code.toUpperCase()).get().then(
@@ -47,9 +47,9 @@ export class CheckinComponent implements OnInit {
             this.isVerified = true;
             this.docId = querySnapshot.docs[0].id;
             var usersRef = this.afs.collection('users').doc(querySnapshot.docs[0].data().userDocId.id).ref.get()
-            .then((value) => {
-              this.userinfo = value.data() as UserInfo;
-            });
+              .then((value) => {
+                this.userinfo = value.data() as UserInfo;
+              });
           }
         } else {
           this.isVerified = false;
@@ -61,14 +61,41 @@ export class CheckinComponent implements OnInit {
   }
 
   checkin() {
-    this.message = "Check in in progress..";
-    this.afs.collection('attendants').doc(this.docId).update({
-      checkin: true
-    }).then((success) => {
-      this.message = "Check in successfully";
-      this.isVerified = false;
-      this.code = "";      
-    });
+
+    var attendantsRef = this.afs.collection('attendants');
+    var query = attendantsRef.ref.where("code", "==", this.code.toUpperCase()).get().then(
+      (querySnapshot) => {
+        console.log("size ", querySnapshot.size);
+        if (querySnapshot.size > 0) {
+          if (querySnapshot.docs[0].data().checkin) {
+           var checkinDateTime = new Date(querySnapshot.docs[0].data().checkintime);
+            this.message = "checkin before! ";
+          } else {
+            this.isVerified = true;
+            this.docId = querySnapshot.docs[0].id;
+            var usersRef = this.afs.collection('users').doc(querySnapshot.docs[0].data().userDocId.id).ref.get()
+              .then((value) => {
+                this.userinfo = value.data() as UserInfo;
+                this.message = "Check in in progress..";
+                this.afs.collection('attendants').doc(this.docId).update({
+                  checkin: true,
+                  checkintime: Date.now()
+                }).then((success) => {
+                  this.message = "Check in successfully";
+                  this.isVerified = false;
+                  this.code = "";
+                });
+
+              });
+          }
+        } else {
+          this.isVerified = false;
+          this.message = "Not Exist!";
+          console.log("No such document!");
+        }
+      }
+    );
+
   }
 
   cancel() {

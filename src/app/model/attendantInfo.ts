@@ -3,6 +3,7 @@ export class AttendantInfo {
     userDocId: any;
     code: string;
     checkin: boolean;
+    claim: boolean;
     withdraw: boolean;
     walkin: boolean;
     checkintime: string;

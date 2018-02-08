@@ -13,7 +13,9 @@
       <th>Contact</th>
       <th>organization</th>
       <th>checkin</th>
-      <th>DocId</th>
+      <th>claim</th>
+      <th>checkintime</th>
+      <!-- <th>DocId</th> -->
     </tr>
     <tr *ngFor="let attendant of attendants |async;  let i = index">
       <td>{{ i + 1 }}</td>
@@ -24,7 +26,9 @@
       <td>{{ attendant.user.email }}</td>
       <td>{{ attendant.user.organization }}</td>
       <td>{{ attendant.attendant.checkin }}</td>
-      <td>{{ attendant.attendant.userDocId.id }}</td>
+      <td>{{ attendant.attendant.claim }}</td>
+      <td>{{ attendant.attendant.checkintime | date:'dd/MM/yyyy HH:mm:ss' }}</td>      
+      <!-- <td>{{ attendant.attendant.userDocId.id }}</td> -->
     </tr>
   </table>
 

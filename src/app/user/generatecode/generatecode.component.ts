@@ -36,6 +36,16 @@ export class GeneratecodeComponent implements OnInit {
       value.forEach((v) => {
 
         let data = v.data() as UserInfo;
+      //   let x = data.contact;
+      //   console.log("before: " + data.contact);
+      //   if (!data.contact.startsWith("+886") && !data.contact.startsWith("+6")) {
+      //     x = "+6" + data.contact;
+      //     console.log("after :"+ x);
+      //  }
+
+      //   this.afs.collection('users').doc(v.ref.id).update({
+      //     contact: x
+      //   })
 
         let stringTohash = "HI7Oj1OY284i0YD2aJC1" + data.contact;
         let hash = ShortHash.unique(stringTohash);
@@ -46,6 +56,7 @@ export class GeneratecodeComponent implements OnInit {
         newAttendantInfo.checkin = false;
         newAttendantInfo.withdraw = false;
         newAttendantInfo.walkin = false;
+        newAttendantInfo.claim = false;
         newAttendantInfo.checkintime = "";
 
         this.afs.collection('attendants').add(newAttendantInfo.getData())

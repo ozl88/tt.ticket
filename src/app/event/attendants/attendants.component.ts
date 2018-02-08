@@ -46,7 +46,6 @@ export class AttendantsComponent implements OnInit {
             attendantfullinfo.attendant = attendantInfo;
             attendantfullinfo.user = new UserInfo();
             abcd.forEach(x => {
-              console.log("user: ",x,attendantInfo.userDocId.id);
               if (x.id == attendantInfo.userDocId.id) {
                 attendantfullinfo.user = x;
               }
