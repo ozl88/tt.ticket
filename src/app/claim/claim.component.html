@@ -1,3 +1,24 @@
-<p>
-  claim works!
-</p>
+<div class="form-container">
+  <div class="d-flex flex-column">
+    <div>
+      Code:
+      <input type="text" name="code" [(ngModel)]="code">
+
+
+      <div class="d-flex" *ngIf="!isVerified">
+        <button (click)="verifyCode()" id="btnverify" class="basic-btn">Verify</button>
+      </div>
+      <span class="error" *ngIf="message">{{ message }}</span>
+
+      <div class="d-flex" *ngIf="isVerified">
+        <p>First name: {{userinfo.firstname}} </p>
+        <p>Last name: {{userinfo.lastname}} </p>
+        <p>Contact: {{userinfo.contact}} </p>
+        <p>Email: {{userinfo.email}} </p>
+        <p>Organization: {{userinfo.organization}} </p>
+
+        <button (click)="claim()" id="btnclaim" class="basic-btn">Claim</button>
+        <button (click)="cancel()" id="btncancel" class="basic-btn">Cancel</button>
+      </div>
+    </div>
+  </div>

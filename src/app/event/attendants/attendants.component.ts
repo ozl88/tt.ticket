@@ -16,9 +16,26 @@ export class AttendantsComponent implements OnInit {
   attendantsCollection: AngularFirestoreCollection<AttendantFullInfo>;
   attendants: Observable<AttendantFullInfo[]>;
   attendantFullInfo: Observable<AttendantFullInfo[]>;
-
+  checkinCount: number = 0;
+  totalCount: number = 0;
+  isView: boolean = false;
 
   constructor(private afs: AngularFirestore) {
+
+    this.afs.collection('attendants').ref.where("checkin", "==", true).get().then((querySnapshot) => {
+      this.checkinCount = querySnapshot.size;
+    });
+
+    this.afs.collection('attendants').ref.get().then((querySnapshot) => {
+      this.totalCount = querySnapshot.size;
+    });
+  }
+
+  ngOnInit() {  }
+
+  view() {
+    this.isView = true;
+
     this.attendantsCollection = this.afs.collection('attendants', ref => {
       return ref.orderBy('code');
     });
@@ -34,7 +51,7 @@ export class AttendantsComponent implements OnInit {
 
 
     var userList = this.afs.collection('users');
-    userList
+
     this.attendants = this.attendantsCollection.snapshotChanges().map(
       changes => {
         return changes.map(
@@ -57,10 +74,7 @@ export class AttendantsComponent implements OnInit {
               });
             return attendantfullinfo;
           });
+
       });
   }
-
-  ngOnInit() {
-  }
-
 }

@@ -1,36 +1,45 @@
 <div class="container" style="overflow-x:auto; margin:50px">
-
   <a routerLink="/members" id="goback">Go back</a>
+  <br />
+  <br />
+  <br />
+  <h3 align="center">Status: {{checkinCount}} / {{totalCount}}</h3>
+  <br />
+  <br />
+  <div *ngIf=!isView>
+    <button (click)="view()" id="btnview" class="basic-btn">View Attendant List</button>
+  </div>
 
-
-  <table>
-    <tr>
-      <th></th>
-      <th>code</th>
-      <th>Last Name</th>
-      <th>First Name</th>
-      <th>Email</th>
-      <th>Contact</th>
-      <th>organization</th>
-      <th>checkin</th>
-      <th>claim</th>
-      <th>checkintime</th>
-      <!-- <th>DocId</th> -->
-    </tr>
-    <tr *ngFor="let attendant of attendants |async;  let i = index">
-      <td>{{ i + 1 }}</td>
-      <td>{{ attendant.attendant.code }}</td>
-      <td>{{ attendant.user.firstname }}</td>
-      <td>{{ attendant.user.lastname }}</td>
-      <td>{{ attendant.user.contact }}</td>
-      <td>{{ attendant.user.email }}</td>
-      <td>{{ attendant.user.organization }}</td>
-      <td>{{ attendant.attendant.checkin }}</td>
-      <td>{{ attendant.attendant.claim }}</td>
-      <td>{{ attendant.attendant.checkintime | date:'dd/MM/yyyy HH:mm:ss' }}</td>      
-      <!-- <td>{{ attendant.attendant.userDocId.id }}</td> -->
-    </tr>
-  </table>
-
+  <div *ngIf=isView>
+    <br />
+    <table>
+      <tr>
+        <th></th>
+        <th>code</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>organization</th>
+        <th>checkin</th>
+        <th>claim</th>
+        <th>checkintime</th>
+        <!-- <th>DocId</th> -->
+      </tr>
+      <tr *ngFor="let attendant of attendants |async;  let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ attendant.attendant.code }}</td>
+        <td>{{ attendant.user.firstname }}</td>
+        <td>{{ attendant.user.lastname }}</td>
+        <td>{{ attendant.user.contact }}</td>
+        <td>{{ attendant.user.email }}</td>
+        <td>{{ attendant.user.organization }}</td>
+        <td>{{ attendant.attendant.checkin }}</td>
+        <td>{{ attendant.attendant.claim }}</td>
+        <td>{{ attendant.attendant.checkintime | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+        <!-- <td>{{ attendant.attendant.userDocId.id }}</td> -->
+      </tr>
+    </table>
+  </div>
 
 </div>
