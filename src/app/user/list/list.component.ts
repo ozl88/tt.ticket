@@ -20,6 +20,7 @@ export class ListComponent implements OnInit {
   constructor(
     private afs: AngularFirestore) {
     this.userCollection = this.afs.collection('users', ref => {
+      console.log(ref);
       return ref.orderBy('organization');
     });
 

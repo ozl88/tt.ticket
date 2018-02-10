@@ -10,7 +10,8 @@
       <th>Email</th>
       <th>Organization</th>
     </tr>
-    <tr *ngFor="let user of users | async">
+    <tr *ngFor="let user of users | async;  let i = index">
+        <td>{{ i + 1 }}</td>
       <td>{{ user.firstname }}</td>
       <td>{{ user.lastname }}</td>
       <td>{{ user.contact }}</td>

@@ -31,7 +31,7 @@ export class CreateComponent implements OnInit {
 
   newUserInfo: UserInfo;
   user: any;
-
+  usercode: string = "";
   message: string = "";
 
   constructor(private afs: AngularFirestore) {
@@ -50,6 +50,7 @@ export class CreateComponent implements OnInit {
 
 
   addUser() {
+    this.usercode = "";
     console.log("userinfo: ", this.newUserInfo);
 
     if (this.newUserInfo.contact &&
@@ -72,17 +73,20 @@ export class CreateComponent implements OnInit {
       newAttendantInfo.withdraw = false;
       newAttendantInfo.walkin = false;
       newAttendantInfo.checkintime = "";
-
+      console.log("new user: ", res);
       this.afs.collection('attendants').add(newAttendantInfo.getData())
         .then((r) => {
+          this.usercode = hash.toUpperCase();
         });
     }
     );
-    this.clearData();
+    // this.clearData();
   }
 
   clearData() {
     this.newUserInfo = new UserInfo();
+    this.usercode = "";
+    this.message ="";
   }
 
 }
